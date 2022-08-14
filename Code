@@ -1,0 +1,31 @@
+def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        
+        ROW, COL=len(matrix), len(matrix[0])
+        i, j, k, l =0, 0, 0, 0
+        count = 0
+
+        # Rotating single value of a row
+        def rotate(i,j,temp,count):
+            if count%4==0 and count>1:
+                return
+            k = j
+            l = COL-1-i
+            l_temp = matrix[k][l]
+            matrix[k][l] = temp
+            temp = l_temp
+            i=k
+            j=l
+            count+=1
+            rotate(i,j,temp,count)
+        
+        # Rotating all the values of a row
+        def row_rotate(i,j,row):
+            for x in range(0+i,row-1-j):
+                rotate(i,x,matrix[i][x],count)
+        
+        # Calling the function for all the rows
+        for _ in range(ROW//2):
+            row_rotate(_,_,ROW)
